@@ -56,8 +56,13 @@ MODEL_CONFIG = {
 # =========================
 # GET MODEL (LAZY LOAD)
 # =========================
-
 def get_model(model_name):
+
+    if model_name not in MODEL_CONFIG:
+
+        raise ValueError(
+            f"Invalid model name: {model_name}"
+        )
 
     if model_name not in MODEL_CACHE:
 
@@ -66,7 +71,6 @@ def get_model(model_name):
         )
 
     return MODEL_CACHE[model_name]
-
 
 # =========================
 # PREDICTION FUNCTION
