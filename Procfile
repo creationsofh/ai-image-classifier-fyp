@@ -1,1 +1,1 @@
-web: gunicorn image_classifier.wsgi
+web: gunicorn image_classifier.wsgi:application
