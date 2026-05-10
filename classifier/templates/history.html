@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- =========================
+PAGE HEADER
+========================= -->
+
+<div style="margin-bottom:30px;">
+
+    <h1 style="
+        font-size:38px;
+        margin-bottom:10px;
+    ">
+
+        Prediction History
+
+    </h1>
+
+    <p style="
+        color:var(--gray1);
+        line-height:1.7;
+    ">
+
+        View previous AI predictions, confidence scores,
+        uploaded images, and classification activity.
+
+    </p>
+
+</div>
+
+<!-- =========================
+STATS ROW
+========================= -->
+
+<div class="grid" style="margin-bottom:25px;">
+
+    <div class="card">
+
+        <p style="
+            color:var(--gray1);
+            margin-bottom:10px;
+        ">
+            Total Predictions
+        </p>
+
+        <h1>
+            {{ data|length }}
+        </h1>
+
+    </div>
+
+    <div class="card">
+
+        <p style="
+            color:var(--gray1);
+            margin-bottom:10px;
+        ">
+            Latest Activity
+        </p>
+
+        <h3>
+
+            {% if data %}
+                {{ data.0.label }}
+            {% else %}
+                No Activity
+            {% endif %}
+
+        </h3>
+
+    </div>
+
+</div>
+
+<!-- =========================
+HISTORY SECTION
+========================= -->
+
+<div class="card">
+
+    <div style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        flex-wrap:wrap;
+        gap:15px;
+        margin-bottom:25px;
+    ">
+
+        <div>
+
+            <h2 style="margin-bottom:8px;">
+                Prediction Records
+            </h2>
+
+            <p style="color:var(--gray1);">
+                Complete upload and prediction history.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- EMPTY STATE -->
+
+    {% if not data %}
+
+    <div style="
+        text-align:center;
+        padding:70px 20px;
+    ">
+
+        <div style="
+            font-size:70px;
+            margin-bottom:20px;
+        ">
+            📂
+        </div>
+
+        <h2 style="margin-bottom:15px;">
+            No Prediction History
+        </h2>
+
+        <p style="
+            color:var(--gray1);
+            margin-bottom:25px;
+        ">
+
+            Your AI predictions will appear here after uploads.
+
+        </p>
+
+        <a href="/dashboard/">
+
+            <button class="btn btn-dark">
+                Upload First Image
+            </button>
+
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <!-- TABLE -->
+
+    <div style="
+        overflow-x:auto;
+    ">
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+        ">
+
+            <!-- HEAD -->
+
+            <thead>
+
+                <tr style="
+                    border-bottom:1px solid var(--gray2);
+                ">
+
+                    <th style="
+                        padding:18px;
+                        text-align:left;
+                    ">
+                        Image
+                    </th>
+
+                    <th style="
+                        padding:18px;
+                        text-align:left;
+                    ">
+                        Prediction
+                    </th>
+
+                    <th style="
+                        padding:18px;
+                        text-align:left;
+                    ">
+                        Confidence
+                    </th>
+
+                    <th style="
+                        padding:18px;
+                        text-align:left;
+                    ">
+                        Uploaded
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <!-- BODY -->
+
+            <tbody>
+
+                {% for i in data %}
+
+                <tr style="
+                    border-bottom:1px solid var(--gray2);
+                    transition:0.3s ease;
+                ">
+
+                    <!-- IMAGE -->
+
+                    <td style="padding:18px;">
+
+                        <img
+                            src="{{ i.image.url }}"
+                            class="result-image"
+                            alt="Prediction Image"
+                            style="
+                                width:90px;
+                                height:90px;
+                                object-fit:cover;
+                                border-radius:16px;
+                                border:1px solid var(--gray2);
+                            "
+                        >
+
+                    </td>
+
+                    <!-- LABEL -->
+
+                    <td style="padding:18px;">
+
+                        <h3 style="
+                            margin-bottom:6px;
+                        ">
+
+                            {{ i.label }}
+
+                        </h3>
+
+                        <p style="
+                            color:var(--gray1);
+                            font-size:14px;
+                        ">
+
+                            AI Classified Result
+
+                        </p>
+
+                    </td>
+
+                    <!-- CONFIDENCE -->
+
+                    <td style="padding:18px;">
+
+                        <div style="
+                            min-width:180px;
+                        ">
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                margin-bottom:8px;
+                            ">
+
+                                <span>
+                                    Confidence
+                                </span>
+
+                                <span>
+                                    {{ i.confidence }}%
+                                </span>
+
+                            </div>
+
+                            <div class="progress-bg">
+
+                                <div
+                                    class="progress-fill"
+                                    data-width="{{ i.confidence|default:'0' }}">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <!-- DATE -->
+
+                    <td style="padding:18px;">
+
+                        <div style="
+                            color:var(--gray1);
+                            line-height:1.7;
+                        ">
+
+                            {{ i.uploaded_at }}
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<!-- =========================
+RECENT TIMELINE
+========================= -->
+
+{% if data %}
+
+<div class="card">
+
+    <h2 style="
+        margin-bottom:20px;
+    ">
+
+        Activity Timeline
+
+    </h2>
+
+    {% for i in data|slice:":5" %}
+
+    <div style="
+        display:flex;
+        align-items:center;
+        gap:15px;
+
+        padding:15px 0;
+
+        border-bottom:1px solid var(--gray2);
+    ">
+
+        <div style="
+            width:14px;
+            height:14px;
+            border-radius:50%;
+            background:#22c55e;
+        ">
+        </div>
+
+        <div>
+
+            <h4 style="
+                margin-bottom:5px;
+            ">
+
+                {{ i.label }}
+
+            </h4>
+
+            <p style="
+                color:var(--gray1);
+            ">
+
+                Confidence:
+                {{ i.confidence }}%
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+<!-- =========================
+PROGRESS BARS
+========================= -->
+
+<script>
+
+document.querySelectorAll(".progress-fill")
+.forEach(bar => {
+
+    const width = bar.dataset.width || 0;
+
+    bar.style.width = width + "%";
+
+});
+
+</script>
+
+{% endblock %}

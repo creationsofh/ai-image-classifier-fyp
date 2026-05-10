@@ -1,0 +1,132 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+CreationsofH AI Admin
+{% endblock %}
+
+{% block branding %}
+
+<h1 id="site-name" style="
+    font-size:24px;
+    font-weight:700;
+    color:#fefefe;
+">
+    CreationsofH AI Admin
+</h1>
+
+{% endblock %}
+
+{% block extrastyle %}
+
+<style>
+
+    :root{
+        --white:#fefefe;
+        --black:#000000;
+        --gray1:#919191;
+        --gray2:#cecece;
+        --gray3:#4d4d4d;
+        --success:#22c55e;
+        --danger:#ef4444;
+    }
+
+    body{
+        background:var(--white);
+    }
+
+    #header{
+        background:var(--black);
+        color:var(--white);
+        border-bottom:1px solid var(--gray3);
+    }
+
+    #branding h1{
+        color:var(--white);
+    }
+
+    div.breadcrumbs{
+        background:var(--gray3);
+        color:var(--white);
+    }
+
+    .module h2,
+    .module caption,
+    .inline-group h2{
+
+        background:var(--black);
+        color:var(--white);
+
+        border-radius:8px 8px 0 0;
+    }
+
+    .button,
+    input[type=submit],
+    input[type=button],
+    .submit-row input,
+    a.button{
+
+        background:var(--black);
+        color:var(--white);
+
+        border:none;
+        border-radius:8px;
+
+        padding:10px 16px;
+
+        transition:0.3s ease;
+    }
+
+    .button:hover,
+    input[type=submit]:hover,
+    a.button:hover{
+
+        background:var(--gray3);
+    }
+
+    .dashboard-grid{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+        gap:20px;
+
+        margin-bottom:30px;
+    }
+
+    .dashboard-card{
+
+        background:white;
+
+        border:1px solid var(--gray2);
+
+        border-radius:20px;
+
+        padding:25px;
+
+        box-shadow:
+        0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .dashboard-card h3{
+
+        margin-bottom:12px;
+
+        color:var(--gray3);
+
+        font-size:16px;
+    }
+
+    .dashboard-card p{
+
+        font-size:32px;
+
+        font-weight:bold;
+
+        color:var(--black);
+    }
+
+</style>
+
+{% endblock %}

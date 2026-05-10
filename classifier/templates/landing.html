@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ content.site_name|default:"CreationsofH AI" }}
+    </title>
+
+    <style>
+
+        :root {
+
+            --white:#fefefe;
+            --black:#000000;
+
+            --gray1:#919191;
+            --gray2:#cecece;
+            --gray3:#4d4d4d;
+
+            --success:#22c55e;
+            --danger:#ef4444;
+
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+
+            font-family:"Segoe UI",sans-serif;
+
+            background:var(--white);
+            color:var(--black);
+
+            overflow-x:hidden;
+
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar{
+
+            position:fixed;
+
+            top:0;
+            left:0;
+
+            width:100%;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:18px 8%;
+
+            background:rgba(254,254,254,0.92);
+
+            backdrop-filter:blur(12px);
+
+            border-bottom:1px solid var(--gray2);
+
+            z-index:1000;
+
+        }
+
+        .logo{
+
+            font-size:24px;
+            font-weight:700;
+
+            letter-spacing:1px;
+
+        }
+
+        .nav-buttons{
+
+            display:flex;
+            gap:12px;
+
+        }
+
+        .btn{
+
+            border:none;
+
+            padding:11px 20px;
+
+            border-radius:12px;
+
+            cursor:pointer;
+
+            transition:0.3s ease;
+
+            font-weight:600;
+
+            font-size:14px;
+
+        }
+
+        .btn-dark{
+
+            background:var(--black);
+            color:var(--white);
+
+        }
+
+        .btn-light{
+
+            background:transparent;
+
+            border:1px solid var(--gray2);
+
+            color:var(--black);
+
+        }
+
+        .btn:hover{
+
+            transform:translateY(-3px);
+
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero{
+
+            min-height:100vh;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+
+            padding:120px 8% 70px;
+
+            gap:60px;
+
+        }
+
+        .hero-left{
+            flex:1;
+        }
+
+        .hero-left h1{
+
+            font-size:68px;
+
+            line-height:1.05;
+
+            margin-bottom:25px;
+
+            max-width:700px;
+
+        }
+
+        .hero-left p{
+
+            color:var(--gray3);
+
+            font-size:18px;
+
+            line-height:1.8;
+
+            margin-bottom:35px;
+
+            max-width:650px;
+
+        }
+
+        .hero-buttons{
+
+            display:flex;
+            gap:15px;
+            flex-wrap:wrap;
+
+        }
+
+        /* =========================
+           HERO VISUAL
+        ========================== */
+
+        .hero-right{
+
+            flex:1;
+
+            display:flex;
+            justify-content:center;
+
+        }
+
+        .visual-box{
+
+            width:100%;
+            max-width:520px;
+
+            height:520px;
+
+            border-radius:32px;
+
+            background:
+            linear-gradient(
+                135deg,
+                #000000,
+                #4d4d4d
+            );
+
+            position:relative;
+
+            overflow:hidden;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            color:white;
+
+            font-size:30px;
+            font-weight:700;
+
+            box-shadow:
+            0 25px 60px rgba(0,0,0,0.2);
+
+        }
+
+        .circle{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            background:rgba(255,255,255,0.07);
+
+        }
+
+        .circle1{
+
+            width:240px;
+            height:240px;
+
+            top:-60px;
+            left:-60px;
+
+        }
+
+        .circle2{
+
+            width:180px;
+            height:180px;
+
+            bottom:-40px;
+            right:-40px;
+
+        }
+
+        /* =========================
+           FEATURES
+        ========================== */
+
+        .features{
+
+            padding:100px 8%;
+
+        }
+
+        .section-title{
+
+            text-align:center;
+
+            margin-bottom:60px;
+
+        }
+
+        .section-title h2{
+
+            font-size:46px;
+
+            margin-bottom:15px;
+
+        }
+
+        .section-title p{
+
+            color:var(--gray3);
+
+            max-width:700px;
+
+            margin:auto;
+
+            line-height:1.7;
+
+        }
+
+        .feature-grid{
+
+            display:grid;
+
+            grid-template-columns:
+            repeat(auto-fit,minmax(250px,1fr));
+
+            gap:25px;
+
+        }
+
+        .feature-card{
+
+            border:1px solid var(--gray2);
+
+            padding:35px;
+
+            border-radius:22px;
+
+            transition:0.3s ease;
+
+            background:white;
+
+        }
+
+        .feature-card:hover{
+
+            transform:translateY(-8px);
+
+            box-shadow:
+            0 20px 50px rgba(0,0,0,0.08);
+
+        }
+
+        .feature-card h3{
+
+            margin-bottom:15px;
+
+            font-size:22px;
+
+        }
+
+        .feature-card p{
+
+            color:var(--gray3);
+
+            line-height:1.7;
+
+        }
+
+        /* =========================
+           CTA SECTION
+        ========================== */
+
+        .cta{
+
+            padding:100px 8%;
+
+        }
+
+        .cta-box{
+
+            background:#000;
+
+            color:white;
+
+            padding:70px;
+
+            border-radius:35px;
+
+            text-align:center;
+
+        }
+
+        .cta-box h2{
+
+            font-size:48px;
+
+            margin-bottom:20px;
+
+        }
+
+        .cta-box p{
+
+            color:#cecece;
+
+            margin-bottom:35px;
+
+            font-size:17px;
+
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer{
+
+            padding:35px 8%;
+
+            text-align:center;
+
+            color:var(--gray3);
+
+            border-top:1px solid var(--gray2);
+
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media(max-width:1000px){
+
+            .hero{
+
+                flex-direction:column;
+
+                text-align:center;
+
+            }
+
+            .hero-left h1{
+                font-size:50px;
+            }
+
+        }
+
+        @media(max-width:600px){
+
+            .hero-left h1{
+                font-size:38px;
+            }
+
+            .visual-box{
+                height:360px;
+            }
+
+            .cta-box{
+                padding:45px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">
+        {{ content.site_name|default:"CreationsofH AI" }}
+    </div>
+
+    <div class="nav-buttons">
+
+        <a href="/login/">
+            <button class="btn btn-light">
+                Login
+            </button>
+        </a>
+
+        <a href="/register/">
+            <button class="btn btn-dark">
+                Get Started
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="hero-left">
+
+        <h1>
+            {{ content.hero_title|default:"AI Powered Image Intelligence Platform" }}
+        </h1>
+
+        <p>
+            {{ content.hero_desc|default:"Modern AI SaaS platform for image classification, analytics, and scalable deployment." }}
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/register/">
+                <button class="btn btn-dark">
+                    Start Now
+                </button>
+            </a>
+
+            <a href="/api/docs/">
+                <button class="btn btn-light">
+                    API Docs
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <div class="visual-box">
+
+            <div class="circle circle1"></div>
+            <div class="circle circle2"></div>
+
+            AI SaaS Engine
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+    <div class="section-title">
+
+        <h2>
+            {{ content.feature_title|default:"Enterprise AI Features" }}
+        </h2>
+
+        <p>
+            {{ content.feature_subtitle|default:"Modern functionality designed for scalable AI workflows." }}
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+            <h3>AI Classification</h3>
+            <p>EfficientNet powered image recognition with real-time prediction results.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Analytics Dashboard</h3>
+            <p>Interactive dashboard with confidence metrics and prediction insights.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Prediction History</h3>
+            <p>Secure user-based prediction storage and historical tracking.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>REST API</h3>
+            <p>External integration-ready prediction API for scalable systems.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+<section class="cta">
+
+    <div class="cta-box">
+
+        <h2>
+            {{ content.cta_title|default:"Start Using AI Today" }}
+        </h2>
+
+        <p>
+            {{ content.cta_desc|default:"Build, analyze, and scale image intelligence workflows with CreationsofH AI." }}
+        </p>
+
+        <a href="/register/">
+            <button class="btn btn-light">
+                Create Account
+            </button>
+        </a>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    {{ content.footer_text|default:"© 2026 CreationsofH AI Platform — VU Final Year Project" }}
+
+</footer>
+
+</body>
+</html>

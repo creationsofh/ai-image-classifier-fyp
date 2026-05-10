@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="
+    min-height:75vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+">
+
+    <div class="card" style="
+        width:100%;
+        max-width:450px;
+        padding:40px;
+    ">
+
+        <div style="text-align:center; margin-bottom:30px;">
+
+            <h1 style="
+                margin-bottom:10px;
+                font-size:36px;
+            ">
+                Welcome Back
+            </h1>
+
+            <p style="
+                color:var(--gray1);
+                line-height:1.7;
+            ">
+                Login to access your AI dashboard
+                and prediction system.
+            </p>
+
+        </div>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div style="margin-bottom:20px;">
+
+                <label style="
+                    display:block;
+                    margin-bottom:8px;
+                    font-weight:600;
+                ">
+                    Username
+                </label>
+
+                {{ form.username }}
+
+            </div>
+
+            <div style="margin-bottom:25px;">
+
+                <label style="
+                    display:block;
+                    margin-bottom:8px;
+                    font-weight:600;
+                ">
+                    Password
+                </label>
+
+                {{ form.password }}
+
+            </div>
+
+            <button class="btn btn-dark"
+                    style="
+                    width:100%;
+                    padding:14px;
+                    font-size:16px;
+            ">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <div style="
+            margin-top:25px;
+            text-align:center;
+            color:var(--gray1);
+        ">
+
+            Don't have an account?
+
+            <a href="/register/"
+               style="
+               color:var(--text);
+               font-weight:600;
+            ">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

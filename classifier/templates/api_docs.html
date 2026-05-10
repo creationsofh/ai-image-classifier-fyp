@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- =========================
+HEADER
+========================= -->
+
+<div style="margin-bottom:30px;">
+
+    <h1 style="font-size:38px;">
+        API Documentation
+    </h1>
+
+    <p style="color:var(--gray1);">
+        Test your AI model using REST API endpoint with live response.
+    </p>
+
+</div>
+
+<!-- =========================
+ENDPOINT INFO
+========================= -->
+
+<div class="card">
+
+    <h2>POST /api/predict/</h2>
+
+    <p style="color:var(--gray1); margin-top:10px;">
+        Upload an image and receive AI prediction result.
+    </p>
+
+    <hr style="margin:20px 0;">
+
+    <h3>Request Format</h3>
+
+    <pre style="
+        background:#000;
+        color:#fff;
+        padding:15px;
+        border-radius:10px;
+        overflow:auto;
+    ">
+multipart/form-data
+
+key: image (file)
+    </pre>
+
+    <h3>Response Format</h3>
+
+    <pre style="
+        background:#000;
+        color:#fff;
+        padding:15px;
+        border-radius:10px;
+        overflow:auto;
+    ">
+{
+  "label": "Golden Retriever",
+  "confidence": 92.5,
+  "top_predictions": [
+    {"label": "Golden Retriever", "confidence": 92.5},
+    {"label": "Labrador", "confidence": 5.2}
+  ]
+}
+    </pre>
+
+</div>
+
+<!-- =========================
+LIVE TEST PANEL
+========================= -->
+
+<div class="card">
+
+    <h2 style="margin-bottom:15px;">
+        Live API Playground
+    </h2>
+
+    <p style="color:var(--gray1); margin-bottom:25px;">
+        Upload image and test real-time AI prediction API.
+    </p>
+
+    <form id="api-form" enctype="multipart/form-data">
+
+        <input
+            type="file"
+            name="image"
+            id="api-image"
+            required
+        >
+
+        <button
+            type="submit"
+            class="btn btn-dark"
+            style="margin-top:15px;"
+        >
+
+            Run API Test
+
+        </button>
+
+    </form>
+
+    <div id="api-loading"
+         style="
+         display:none;
+         margin-top:20px;
+         color:var(--gray1);
+    ">
+
+        Running AI prediction...
+
+    </div>
+
+    <pre id="api-result"
+         style="
+         background:#000;
+         color:#00ff88;
+
+         padding:25px;
+
+         border-radius:20px;
+
+         overflow:auto;
+
+         margin-top:20px;
+
+         display:none;
+    "></pre>
+
+</div>
+
+<!-- =========================
+JS TEST CALL
+========================= -->
+
+<script>
+
+document.getElementById("api-form")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const loading =
+    document.getElementById("api-loading");
+
+    const resultBox =
+    document.getElementById("api-result");
+
+    loading.style.display = "block";
+
+    resultBox.style.display = "none";
+
+    const fileInput =
+    document.getElementById("api-image");
+
+    const formData = new FormData();
+
+    formData.append(
+        "image",
+        fileInput.files[0]
+    );
+
+    try{
+
+        const response = await fetch(
+            "/api/predict/",
+            {
+                method:"POST",
+                body:formData
+            }
+        );
+
+        const data = await response.json();
+
+        loading.style.display = "none";
+
+        resultBox.style.display = "block";
+
+        resultBox.textContent =
+        JSON.stringify(data, null, 4);
+
+    }catch(error){
+
+        loading.style.display = "none";
+
+        resultBox.style.display = "block";
+
+        resultBox.textContent =
+        "API Error";
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

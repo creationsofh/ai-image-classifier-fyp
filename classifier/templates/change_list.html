@@ -1,0 +1,69 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+
+<!-- =========================
+ADMIN ANALYTICS CARDS
+========================= -->
+
+<div style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+">
+
+    <div style="
+        background:#111;
+        color:#fff;
+        padding:20px;
+        border-radius:12px;
+    ">
+        <h4>Total Predictions</h4>
+        <h2>{{ total_predictions }}</h2>
+    </div>
+
+    <div style="
+        background:#111;
+        color:#fff;
+        padding:20px;
+        border-radius:12px;
+    ">
+        <h4>Avg Confidence</h4>
+        <h2>{{ avg_confidence|floatformat:2 }}%</h2>
+    </div>
+
+    <div style="
+        background:#111;
+        color:#fff;
+        padding:20px;
+        border-radius:12px;
+    ">
+        <h4>Top Label</h4>
+        <h2>
+            {% if top_label %}
+                {{ top_label.label }}
+            {% else %}
+                N/A
+            {% endif %}
+        </h2>
+    </div>
+
+    <div style="
+        background:#111;
+        color:#fff;
+        padding:20px;
+        border-radius:12px;
+    ">
+        <h4>Unique Users</h4>
+        <h2>{{ unique_users }}</h2>
+    </div>
+
+</div>
+
+<hr style="margin-bottom:20px;">
+
+<!-- DEFAULT ADMIN TABLE -->
+{{ block.super }}
+
+{% endblock %}

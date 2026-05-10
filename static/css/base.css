@@ -1,0 +1,586 @@
+:root {
+
+    --bg: #fefefe;
+    --card: #ffffff;
+    --text: #000000;
+
+    --gray1: #919191;
+    --gray2: #cecece;
+    --gray3: #4d4d4d;
+
+    --success: #22c55e;
+    --danger: #ef4444;
+
+    --sidebar: #000000;
+    --sidebarText: #ffffff;
+
+}
+
+body.dark {
+
+    --bg: #000000;
+    --card: #111111;
+    --text: #ffffff;
+
+    --gray1: #b0b0b0;
+    --gray2: #2a2a2a;
+    --gray3: #cecece;
+
+    --sidebar: #111111;
+    --sidebarText: #ffffff;
+
+    background:
+    linear-gradient(
+    to bottom right,
+    #050505,
+    #111111
+    );
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:"Segoe UI",sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+
+    transition:0.3s ease;
+
+    background:
+    linear-gradient(
+    to bottom right,
+    #f5f5f5,
+    #ffffff
+    );
+}
+
+a{
+    text-decoration:none;
+}
+
+.mobile-overlay{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.5);
+
+    z-index:999;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:0.3s ease;
+
+}
+
+.mobile-overlay.active{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+.sidebar{
+
+    width:260px;
+    height:100vh;
+
+    background:var(--sidebar);
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    padding:20px;
+
+    overflow-y:auto;
+
+    transition:0.3s ease;
+
+    z-index:1000;
+
+}
+
+.sidebar.collapsed{
+    width:90px;
+}
+
+.brand{
+
+    color:white;
+
+    font-size:24px;
+    font-weight:700;
+
+    margin-bottom:30px;
+
+}
+
+.menu-toggle{
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    margin-bottom:20px;
+
+}
+
+.nav-link{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    color:white;
+
+    margin-bottom:10px;
+
+    transition:0.2s ease;
+
+}
+
+.nav-link:hover{
+
+    background:#1f1f1f;
+
+}
+
+.sidebar.collapsed .nav-text{
+    display:none;
+}
+
+.main{
+
+    margin-left:260px;
+
+    padding:30px;
+
+    transition:0.3s ease;
+
+}
+
+.main.expanded{
+    margin-left:90px;
+}
+
+.topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:30px;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.topbar-right{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+}
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+}
+
+
+.btn{
+
+    border:none;
+
+    padding:11px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:0.2s ease;
+
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-success{
+
+    background:var(--success);
+    color:white;
+
+}
+
+.btn-danger{
+
+    background:var(--danger);
+    color:white;
+
+}
+
+.btn-dark{
+
+    background:var(--gray3);
+    color:white;
+
+}
+
+.card{
+
+    background:rgba(255,255,255,0.7);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    margin-bottom:20px;
+
+    transition:0.3s ease;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.05);
+
+}
+
+.card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.progress-bg{
+
+    width:100%;
+    height:8px;
+
+    background:var(--gray2);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    background:var(--gray3);
+
+    border-radius:20px;
+
+    width:0;
+
+    transition:0.5s ease;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid var(--gray2);
+
+    background:transparent;
+
+    color:var(--text);
+
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+
+        transform:translateX(-100%);
+
+        width:260px;
+
+    }
+
+    .sidebar.collapsed{
+
+        transform:translateX(0);
+
+    }
+
+    .sidebar .nav-text{
+        display:block;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .main.expanded{
+        margin-left:0;
+    }
+
+}
+
+.kpi-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.kpi-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:5px;
+    height:100%;
+
+    background:black;
+
+}
+
+.card{
+
+    animation:fadeUp 0.5s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.nav-link:hover{
+
+    transform:translateX(5px);
+
+}
+
+.btn:hover{
+
+    opacity:0.95;
+
+}
+
+.loading-screen{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.75);
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    z-index:99999;
+
+}
+
+.loader-box{
+
+    text-align:center;
+
+    color:white;
+
+}
+
+.loader{
+
+    width:60px;
+    height:60px;
+
+    border:6px solid #333;
+    border-top:6px solid white;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin:auto auto 20px;
+
+}
+
+@keyframes spin{
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+@media(max-width:900px){
+
+    .sidebar{
+
+        left:-260px;
+
+        transform:none;
+
+    }
+
+    .sidebar.collapsed{
+
+        left:0;
+
+    }
+
+}
+
+/* =========================
+   IMAGE HOVER EFFECT
+========================= */
+
+.result-image{
+
+    transition:0.35s ease;
+
+    cursor:pointer;
+
+}
+
+.result-image:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.15);
+
+}
+
+/* =========================
+   GLOBAL TOAST
+========================= */
+
+.toast-success{
+
+    background:#22c55e !important;
+
+}
+
+.toast-error{
+
+    background:#ef4444 !important;
+
+}
+
+/* =========================
+   TABLE IMPROVEMENT
+========================= */
+
+table tr{
+
+    transition:0.25s ease;
+
+}
+
+table tr:hover{
+
+    background:rgba(0,0,0,0.03);
+
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+}
+
+.empty-state h2{
+
+    margin-bottom:15px;
+
+}
+
+.empty-state p{
+
+    color:var(--gray1);
+
+    margin-bottom:25px;
+
+}
+
+/* =========================
+   DARK MODE CARDS
+========================= */
+
+body.dark .card{
+
+    background:rgba(20,20,20,0.75);
+
+    border:1px solid rgba(255,255,255,0.05);
+
+}
+
