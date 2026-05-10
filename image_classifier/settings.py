@@ -1,8 +1,6 @@
 from pathlib import Path
 import os
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+
 # =========================
 # BASE DIRECTORY
 # =========================
@@ -13,9 +11,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # =========================
 
-SECRET_KEY = 'django-insecure-6w!c98-w56!k+2cdxp(f$*+6#zzi^3o-+r-)$kr@h=um@z^ys6'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-local-dev-key'
+)
 
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -36,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'classifier',
-
+    # cloudinary
     'cloudinary',
     'cloudinary_storage',
+
+    # app
+    'classifier',
 
 ]
 
@@ -64,7 +67,7 @@ MIDDLEWARE = [
 ]
 
 # =========================
-# URLS
+# URL CONFIG
 # =========================
 
 ROOT_URLCONF = 'image_classifier.urls'
@@ -166,7 +169,6 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise static compression
 STATICFILES_STORAGE = (
     'whitenoise.storage.CompressedManifestStaticFilesStorage'
 )
@@ -178,6 +180,24 @@ STATICFILES_STORAGE = (
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# =========================
+# CLOUDINARY STORAGE
+# =========================
+
+CLOUDINARY_STORAGE = {
+
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+
+}
+
+DEFAULT_FILE_STORAGE = (
+    'cloudinary_storage.storage.MediaCloudinaryStorage'
+)
 
 # =========================
 # AUTH REDIRECTS
@@ -195,15 +215,10 @@ LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Prevent memory crashes
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
-FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024 # 10MB
+# =========================
+# UPLOAD LIMITS
+# =========================
 
-#cloudinary settings
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dw3ou8syr',
-    'API_KEY': '558289331792749',
-    'API_SECRET': '1rCZNTWy0lR6CyeeY2VuDXGVtOc'
-}
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
