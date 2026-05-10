@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # =========================
 # BASE DIRECTORY
 # =========================
@@ -35,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'classifier',
+
+    'cloudinary',
+    'cloudinary_storage',
 
 ]
 
@@ -193,3 +198,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Prevent memory crashes
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024 # 10MB
+
+#cloudinary settings
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dw3ou8syr',
+    'API_KEY': '558289331792749',
+    'API_SECRET': '1rCZNTWy0lR6CyeeY2VuDXGVtOc'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
